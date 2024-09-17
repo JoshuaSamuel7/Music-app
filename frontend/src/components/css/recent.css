@@ -1,0 +1,95 @@
+.recent {
+    margin: 5vh 0 2vw 3vw;
+    background-color: #121212;
+    padding: 20px;
+    h2{
+        margin-bottom:7vh;
+    }
+}
+
+.recent-box {
+    display: flex;
+    flex-direction: row;
+    margin: 2vw 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+}
+
+.music-img {
+    width: 10vw;
+    height: 20vh;
+}
+
+.recent-item {
+    position: relative;
+    background-color: #1f1f1f;
+    margin: 0 2vw;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    h3{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 10vw;
+        text-align: center;
+    }
+}
+
+.recent-box::-webkit-scrollbar {
+    height: 1vh;
+    width: 12px;
+}
+
+.recent-box::-webkit-scrollbar-track {
+    background: #1f1f1f;
+}
+
+.recent-box::-webkit-scrollbar-thumb {
+    background: green;
+    border-radius: 10px;
+}
+
+.recent-box::-webkit-scrollbar-thumb:hover {
+    background: darkgreen;
+}
+
+.play-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 5px;
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(0, 255, 0);
+    font-weight: 900;
+}
+
+.recent-item:hover .play-btn {
+    display: block;
+}
+@media (max-width:768px) {
+    .recent{
+        margin: 0;
+        h2{
+            margin: 2vh 0;
+        }
+        .recent-item{
+            margin: 0 2vw;
+            width: 45vw;
+            h3{
+                font-size: 0.8rem;
+                width: 90%;
+            }
+        }
+        .music-img{
+            width: 40vw;
+        }
+    }
+
+}

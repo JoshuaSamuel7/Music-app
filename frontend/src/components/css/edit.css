@@ -1,0 +1,43 @@
+#edit {
+    padding: 0 40px;
+    color: aliceblue;
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 2vh;
+    }
+
+    p {
+        padding: 10px 20px;
+        font-size: 1.3rem;
+    }
+    .song-item {
+        display: flex;
+    }
+    
+    .play-button {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: rgb(0, 255, 0);
+        font-weight: 900;
+    }
+    
+    .song-item:hover .play-button {
+        display: block;
+    }
+    
+}
+@media (max-width:768px) {
+    #edit{
+        margin: 5vh 0;
+        padding: 0 20px;
+        p{
+            width: 90%;
+        }
+        .play-button{
+            display: block;
+        }
+    }
+
+}

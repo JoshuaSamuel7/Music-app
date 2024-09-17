@@ -1,0 +1,57 @@
+.home{
+    background-color: #121212;
+    display: flex;
+    flex: 1;
+    font-family: "Signika",sans-serif;
+    flex-direction: column;
+    overflow-x: hidden;
+    margin-left: 10vw;
+    margin-bottom: 20vh;
+    color: white;
+}
+.user-profile{
+    display: flex;
+    color: lightgreen;
+    padding: 20px;
+    font-size: 1.2rem;
+    justify-content: space-between;
+    margin: 0 1vw;
+    p{
+        margin-right: -20vw;
+        margin-top:1vh;
+    }
+    button{
+        border: none;
+        background-color: lightgreen;
+        border-radius: 5px;
+        padding: 10px 20px;
+        height: 5vh;
+        &:hover{
+            background-color: greenyellow;
+        }
+        
+    }
+
+}
+.user-profile input{
+    background-color: #1f1f1f;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 50vw;
+}
+@media screen and (max-width:768px) {
+    .user-profile button{
+        display: none;
+        
+    }
+    .user-profile p{
+        font-size: 1.2rem;
+        margin: 1vh 2vh 0 0;
+    }
+    .home{margin: 0;
+    margin-bottom: 10vh;}
+    .user-profile{
+        margin-left: 10vw;
+    }
+}

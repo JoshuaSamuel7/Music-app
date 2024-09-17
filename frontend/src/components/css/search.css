@@ -1,0 +1,24 @@
+#search input{
+    color: whitesmoke;
+}
+#search{
+    ul{
+        list-style: none;
+        background-color: #1f1f2f
+    }
+    li{
+        margin: 1vh 1.5vw;
+    }
+}
+
+@media (max-width:768px) {
+#search{
+    ul{
+        width: 80vw;
+    }
+    li{
+        white-space: wrap;
+    }
+}
+
+}
