@@ -15,7 +15,9 @@ function Login({ setUser, baseURL }) {
             .then(response => {
                 setUser(response.data.user);
                 toast.success(response.data.message,{theme:"colored"});
-                navigate("/");
+                setTimeout(()=>{
+                    navigate("/");
+                },2000)
             })
             .catch(err => {
                 toast.error(err.response?.data?.message || "Login failed",{theme:"colored"});

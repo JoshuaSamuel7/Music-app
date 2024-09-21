@@ -10,6 +10,8 @@ function Register({ baseURL }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [mobile, setMobile] = useState("");
+    const [otptoggle,setOtpToggle]=useState(false);
+    const [OTP,setOTP]=useState('');
     const navigate = useNavigate();
     const handleRegister = (event) => {
         event.preventDefault();
@@ -19,18 +21,45 @@ function Register({ baseURL }) {
         }
         axios.post(baseURL + "/register", { name, email, password, mobile }, { withCredentials: true })
             .then(response => {
-                toast.success("Registration successful!",{theme:"colored"});
+                toast.success(response.data.message,{theme:"colored"});
                 console.log(response.data);
-                navigate("/login")
+                setTimeout(() => {
+                    setOtpToggle(true);
+                }, 2000); 
             })
             .catch(err => {
-                toast.error("Registration failed!",{theme:"colored"});
+                toast.error(err.response.data.message||"OTP failed!",{theme:"colored"});
                 console.error(err);
             });
     };
+    const handleOTP=(event)=>{
+        event.preventDefault();
+        axios.post(baseURL+'/verify-otp',{ name, email, password, mobile,OTP }, { withCredentials: true })
+        .then(response=>{
+            toast.success(response.data.message);
+            setTimeout(() => {
+                navigate("/login");
+            }, 4000); 
+            navigate("/login");
+        })
+        .catch(err=>{
+            toast.error(err.response.data.message|| "Registration Failed");
+        })
+    }
 
     return (
         <div className="login-form">
+            {otptoggle?(<>
+            <div>
+                <form onSubmit={handleOTP} method="post">
+                    <label htmlFor="">Enter Your OTP</label>
+                    <input type="tel" maxLength={6} required placeholder="OTP" value={OTP} onChange={(e)=>{setOTP(e.target.value)}} />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            </>
+            ):(
+            <>
             <div className="logo">
                 <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_White.png" alt="" />
                 <h3>JS MUSIC</h3>
@@ -55,7 +84,7 @@ function Register({ baseURL }) {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="off"
+                    autoComplete="on"
                     required
                 />
                 <label htmlFor="">Password</label>
@@ -84,6 +113,7 @@ function Register({ baseURL }) {
                     name="mobile"
                     placeholder="Mobile"
                     value={mobile}
+                    maxLength={10}
                     onChange={(e) => setMobile(e.target.value)}
                     autoComplete="off"
                     required
@@ -91,6 +121,7 @@ function Register({ baseURL }) {
                 <button type="submit">Register</button>
                 <p>Already have an Account? <a href="/login">Login here</a></p>
             </form>
+            </>)}
         </div>
     );
 }
