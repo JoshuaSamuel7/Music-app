@@ -9,10 +9,18 @@ const connectDB = require('./config/db');
 const authRoutes=require('./routes/authRoutes')
 const dotenv=require('dotenv').config;
 const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
 app.use(cors({
     origin:"http://localhost:3000",
     credentials:true
 }))
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100, 
+    message: "Too many requests from this IP, please try again after 15 minutes."
+  });
+  
+app.use(limiter);
 app.use(cookieParser())
 app.use(passport.initialize())
 app.use(homeRoutes);
