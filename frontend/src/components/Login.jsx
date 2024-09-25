@@ -3,24 +3,25 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './css/login.css'
 function Login({ setUser, baseURL }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const [hidePassword, setHidePassword] = useState(true);
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.post(baseURL + "/login", { email, password }, { withCredentials: true })
             .then(response => {
                 setUser(response.data.user);
-                toast.success(response.data.message,{theme:"colored"});
-                setTimeout(()=>{
+                toast.success(response.data.message, { theme: "colored" });
+                setTimeout(() => {
                     navigate("/");
-                },2000)
+                }, 2000)
             })
             .catch(err => {
-                toast.error(err.response?.data?.message || "Login failed",{theme:"colored"});
+                toast.error(err.response?.data?.message || "Login failed", { theme: "colored" });
             });
     };
 
@@ -42,17 +43,19 @@ function Login({ setUser, baseURL }) {
                     autoComplete="off"
                     required
                 />
-                <label htmlFor="Password">Password:</label>
-
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="off"
-                    required
-                />
+                <div className="pass-cont">
+                    <label htmlFor="Password">Password:</label>
+                    <input
+                        type={hidePassword ? "password" : "text"}
+                        name="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="off"
+                        required
+                    />
+                    {hidePassword ? <FaEyeSlash className="eye" onClick={()=>setHidePassword(false)} /> : <FaEye className="eye" onClick={()=>setHidePassword(true)} />}
+                </div>
                 <button type="submit">Login</button>
                 <p>Don't have an account? <a href="/register">Register here</a></p>
             </form>
