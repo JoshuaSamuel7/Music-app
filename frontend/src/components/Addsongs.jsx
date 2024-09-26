@@ -3,14 +3,17 @@ import './css/add.css';
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ReactLoading from 'react-loading';
-import{useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 function Addsongs({ baseURL, user }) {
     const [audioFiles, setAudioFiles] = useState([]);
-    const navigate=useNavigate();
-    const [loading,setLoading]=useState(false);
+    const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(0); 
+    const navigate = useNavigate();
+
     const handleFiles = (e) => {
         const files = Array.from(e.target.files);
-        if (files.length>20){
+        if (files.length > 20) {
             return toast.error("Maximum of 10 files");
         }
         setAudioFiles(files);
@@ -19,20 +22,45 @@ function Addsongs({ baseURL, user }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setProgress(0); 
+
         const formData = new FormData();
         formData.append('email', user.email);
         audioFiles.forEach(file => {
             formData.append('filename', file.name);
             formData.append('audio', file);
         });
-                axios.post(baseURL+"/add-songs",formData,{withCredentials:true})
-        .then(response=>{setLoading(false);toast.success(response.data.message); navigate("/");
-        })
-        .catch(err=>{
-            toast.error(err)
-        })
+
+        try {
+            const response = await axios.post(baseURL + "/add-songs", formData, {
+                withCredentials: true,
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setProgress(percentCompleted); 
+                }
+            });
+            setLoading(false);
+            toast.success(response.data.message);
+            navigate("/");
+        } catch (err) {
+            setLoading(false);
+            toast.error("Upload failed");
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="loading">
+                <ReactLoading type="bubbles" color="#fff" height={50} width={100} />
+                <div className="progress-bar-upload">
+                    <div style={{ width: `${progress}%`, backgroundColor: 'green', height: '10px' }}></div>
+                </div>
+                <p style={{color:"white"}}>{progress}%</p>
+                <p style={{color:"white"}}>{progress===100?"Wait 10 sec. Finalizing...":""}</p>
+            </div>
+        );
     }
-    if(loading){return <div className="loading"><ReactLoading type="bubbles" color="#fff" height={50} width={100} /></div>}
+
     return (
         <div className="adds">
             <form onSubmit={handleSubmit}>
@@ -56,12 +84,9 @@ function Addsongs({ baseURL, user }) {
                     {audioFiles.length > 0 ? <button type="submit">Submit</button> : ""}
                 </div>
             </form>
-            <ToastContainer/>
-
+            <ToastContainer />
         </div>
-
     );
-
 }
 
 export default Addsongs;

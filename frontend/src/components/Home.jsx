@@ -13,6 +13,7 @@ function Home({ user, baseURL,setUser }) {
     const [playing, setPlaying] = useState(false);
     const [songs, setSongs] = useState([]);
     const [loading,setLoading]=useState(true);
+    const [focus,setFocus]=useState(false);
     const [editaccess,setEditAccess]=useState(false);
     const handlePlay = (index) => {
         setCurrentSongIndex(index);
@@ -28,14 +29,14 @@ function Home({ user, baseURL,setUser }) {
         .catch(err=>{console.log(err);
             setLoading(false)
         })
-    },[]);
+    },[songs]);
     if(loading){return <div className="loading"><ReactLoading type="bubbles" color="#fff" height={50} width={100} /></div>}
     return (
         <div className="container">
-            <Navbar setEditAccess={setEditAccess} setUser={setUser}baseURL={baseURL} />
+            <Navbar setFocus={setFocus}setEditAccess={setEditAccess} />
             <div className="home">
 
-                <UserProfile user={user} baseURL={baseURL} setUser={setUser} songs={songs} onPlay={handlePlay} />
+                <UserProfile user={user} baseURL={baseURL} setUser={setUser} songs={songs} onPlay={handlePlay}focus={focus} />
                 <Recent user={user} currentSongIndex={currentSongIndex} onPlay={handlePlay} baseURL={baseURL} />
                 <SongList songs={songs} onPlay={handlePlay} baseURL={baseURL} />
                 {editaccess?<EditSongs songs={songs} onPlay={handlePlay} baseURL={baseURL}user={user}setSongs={setSongs} />:""}

@@ -12,10 +12,10 @@ function SongList({ songs, onPlay }) {
             </div>
 
             {songs?.length > 0 ? (
-                songs?.map((val, index, key) => {
+                songs?.map((val, index) => {
                     return (
                         <div className='song-item'>
-                            <p key={val.name}>{index + 1}. {val.name}</p>
+                            <p key={index}>{index + 1}. {val.name}</p>
                             <button
                                 className='play-button'
                                 onClick={() => onPlay(index)}

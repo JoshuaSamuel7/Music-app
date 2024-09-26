@@ -16,10 +16,15 @@ function Player({user,baseURL,songs, currentSongIndex, setCurrentSongIndex,playi
     const [playedSongs, setPlayedSongs] = useState([]);
 
     useEffect(() => {
-        axios.post(baseURL+"/recent", { email: user.email, recent: songs[currentSongIndex]?.name },{withCredentials:true})
-            .then(err => { })
-        console.log(songs[currentSongIndex]?.name);
-    }, [currentSongIndex]);
+        axios.post(baseURL + "/recent", { email: user.email, recent: songs[currentSongIndex]?.name }, { withCredentials: true })
+          .then(response => {
+            console.log(response.data);  // Log the response data to check
+          })
+          .catch(err => {  // Add proper error handling
+            console.error("Error while posting recent song:", err);
+          });
+      }, [currentSongIndex]);
+      
     useEffect(() => {
         const handleKeyPress = (event) => {
             if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") {
