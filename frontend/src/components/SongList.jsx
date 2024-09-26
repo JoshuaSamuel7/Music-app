@@ -24,7 +24,10 @@ function SongList({ songs, onPlay }) {
                     )
                 })
             ) : (
+                <>
                 <p>No songs available</p>
+                <p>Use <a href="https://spotifydown.com/">Playlist Downloder</a> for downloading your playlist to mp3 and upload it here and hear it without ads.</p>
+                </>
             )}
         </div>
     );

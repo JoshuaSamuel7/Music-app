@@ -10,7 +10,7 @@ function Addsongs({ baseURL, user }) {
     const [loading,setLoading]=useState(false);
     const handleFiles = (e) => {
         const files = Array.from(e.target.files);
-        if (files.length>10){
+        if (files.length>20){
             return toast.error("Maximum of 10 files");
         }
         setAudioFiles(files);
