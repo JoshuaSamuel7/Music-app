@@ -29,7 +29,7 @@ function Home({ user, baseURL,setUser }) {
         .catch(err=>{console.log(err);
             setLoading(false)
         })
-    },[songs]);
+    },[]);
     if(loading){return <div className="loading"><ReactLoading type="bubbles" color="#fff" height={50} width={100} /></div>}
     return (
         <div className="container">

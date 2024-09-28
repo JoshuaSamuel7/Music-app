@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './css/search.css';
 
-function SearchBar({ songs, onPlay,focus }) {
+function SearchBar({ songs, onPlay, focus }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredSongs, setFilteredSongs] = useState([]);
     const [showList, setShowList] = useState(false);
@@ -9,13 +9,14 @@ function SearchBar({ songs, onPlay,focus }) {
     useEffect(() => {
         const filtered = songs
             .map(song => song.name)
-            .filter(val => val.toLowerCase().includes(searchTerm.toLowerCase()));
+            .filter(val => val && val.toLowerCase().includes(searchTerm.toLowerCase())); // Check if val exists
         setFilteredSongs(filtered);
     }, [searchTerm, songs]);
 
     const handleInputChange = (event) => {
         setSearchTerm(event.target.value);
     };
+
     const handleFocus = () => {
         setShowList(true);
     };
