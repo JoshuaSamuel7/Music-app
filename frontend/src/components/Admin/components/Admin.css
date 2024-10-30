@@ -1,0 +1,7 @@
+.admin{
+    background-color: black;
+}
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+}

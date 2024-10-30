@@ -11,6 +11,7 @@ This repository contains a music player web application built using the **MERN s
 - 🖥️ **Responsive Design** - Smooth and modern UI built with React.js.
 - 📁 **Manage Songs** - Add, view, and delete songs.
 - ⏳ **Recently Played** - Tracks the user's recently played songs.
+- 👩‍💼 **Admin Dashboard** - Manage users and view analytics.
 
 ---
 
@@ -116,7 +117,7 @@ The app will be running at:
 |------------------------|------------|----------------------------|
 | `/register`            | `POST`     | Registers a new user.       |
 | `/login`               | `POST`     | Logs in a user and returns JWT token. |
-| `/current_user`         | `GET`      | Returns the currently logged-in user (JWT required). |
+| `/current_user`        | `GET`      | Returns the currently logged-in user (JWT required). |
 | `/logout`              | `GET`      | Logs out the user by clearing the JWT token. |
 
 ### **Music Management**
@@ -127,6 +128,20 @@ The app will be running at:
 | `/delete-songs`        | `DELETE`   | Delete a song from the user's list (JWT required). |
 | `/recent`              | `POST`     | Update the user's recently played songs (JWT required). |
 | `/grecent`             | `POST`     | Get the user's recently played songs (JWT required). |
+
+### **Admin Management**
+| **Route**                       | **Method** | **Description**                               |
+|---------------------------------|------------|-----------------------------------------------|
+| `/admin/login`                  | `POST`     | Authenticates an admin user.                  |
+| `/admin/logout`                 | `POST`     | Logs out the admin user.                      |
+| `/admin/verify`                 | `GET`      | Verifies the authenticity of the admin token. |
+| `/admin/create-user`            | `POST`     | Registers a new user (admin required).        |
+| `/admin/delete-user`            | `DELETE`   | Deletes a user (admin required).              |
+| `/admin/get-admin`              | `GET`      | Retrieves details of the currently logged-in admin. |
+| `/admin/get-music-users`        | `GET`      | Fetches a list of all music users.            |
+| `/admin/put-music-users`        | `PUT`      | Updates details of music users (admin required). |
+| `/admin/delete-music-users/:id` | `DELETE`   | Deletes a specific music user by their ID (admin required). |
+| `/admin/get-analytics`          | `GET`      | Provides analytics data related to the application. |
 
 ---
 

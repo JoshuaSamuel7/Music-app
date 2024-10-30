@@ -1,0 +1,22 @@
+.delete-users h1{
+    text-align: center;
+    color: white;
+}
+.delete-users{
+    padding: 10vh 10vw;
+}
+.accordians{
+    display: flex;
+}
+.accordians > div {
+    display: block;
+    }
+
+@media (max-width:768px) {
+    .accordians{
+        flex-wrap: wrap;
+    }
+    .accordians > div {
+        width: 30vw;
+        }
+}

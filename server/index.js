@@ -3,7 +3,7 @@ const app=express();
 app.use(express.json());
 const cors=require('cors')
 const cloudinary=require('cloudinary').v2
-const passport=require('./config/passport');
+const passport=require('./config/passportUser');
 const homeRoutes=require("./routes/homeRoutes");
 const connectDB = require('./config/db');
 const authRoutes=require('./routes/authRoutes')
@@ -16,13 +16,14 @@ app.use(cors({
 }))
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100, 
+    max: 1000, 
     message: "Too many requests from this IP, please try again after 15 minutes."
   });
-  
+const adminRoutes=require("./routes/adminRoutes");
 app.use(limiter);
 app.use(cookieParser())
 app.use(passport.initialize())
+app.use("/api/admin",adminRoutes);
 app.use(homeRoutes);
 app.use(authRoutes);
 connectDB();

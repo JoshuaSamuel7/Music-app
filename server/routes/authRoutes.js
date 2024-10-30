@@ -1,6 +1,6 @@
 const express=require("express");
 const router=express.Router();
-const passport=require('../config/passport')
+const passport=require('../config/passportUser')
 const authControllers=require('../controllers/authControllers');
 router.post("/register",authControllers.postRegister);
 router.post("/verify-otp",authControllers.verifyOTP);

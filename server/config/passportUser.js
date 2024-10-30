@@ -1,8 +1,9 @@
+// passportUser.js
 require('dotenv').config();
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
 const passport = require('passport');
 const User = require('../models/userSchema');
+
 const cookieExtractor = function (req) {
   let token = null;
   if (req && req.cookies) {
@@ -12,20 +13,19 @@ const cookieExtractor = function (req) {
 };
 
 const options = {
-  jwtFromRequest: cookieExtractor,  
+  jwtFromRequest: cookieExtractor,
   secretOrKey: process.env.JWT_SECRET,
 };
 
-passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
+passport.use('jwt', new JwtStrategy(options, async (jwtPayload, done) => {
   try {
     const user = await User.findById(jwtPayload.id);
     if (user) {
-      return done(null, user); 
-    } else {
-      return done(null, false); 
+      return done(null, user);
     }
+    return done(null, false);
   } catch (error) {
-    return done(error, false); 
+    return done(error, false);
   }
 }));
 

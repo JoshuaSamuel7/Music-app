@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import AddSongs from './components/Addsongs';
 import ReactLoading from 'react-loading';
 import { toast,ToastContainer } from 'react-toastify';
+import Panel from './components/Admin/Panel';
 function App() {
     const [user, setUser] = useState(null);
     const baseURL = "http://localhost:8000";
@@ -35,6 +36,7 @@ function App() {
                     <Route path='/' element={user ? <Home user={user} setUser={setUser} baseURL={baseURL} /> : <Navigate to="/login" />} />
                     <Route path='/login' element={user ? <Navigate to="/" /> : <Login setUser={setUser} baseURL={baseURL} />} />
                     <Route path='/register' element={<Register baseURL={baseURL} />} />
+                    <Route path='/admin/*' element={<Panel />} />
                 </Routes>
                 <ToastContainer/>
             </div>
