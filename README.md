@@ -13,7 +13,8 @@ This repository contains a music player web application built using the **MERN s
 - ⏳ **Recently Played** - Tracks the user's recently played songs.
 - 👩‍💼 **Admin Dashboard** - Manage users and view analytics.
 
----
+---![music](https://github.com/user-attachments/assets/26b7f599-84c1-4a02-a5e0-9896b144b809)
+
 
 ## 📦 **Tech Stack**
 | **Technology**  | **Description**  |
@@ -120,6 +121,8 @@ The app will be running at:
 | `/current_user`        | `GET`      | Returns the currently logged-in user (JWT required). |
 | `/logout`              | `GET`      | Logs out the user by clearing the JWT token. |
 
+![image](https://github.com/user-attachments/assets/4eecc34a-f521-4600-bf39-03f0b28489e9)
+
 ### **Music Management**
 | **Route**              | **Method** | **Description**            |
 |------------------------|------------|----------------------------|
@@ -128,6 +131,7 @@ The app will be running at:
 | `/delete-songs`        | `DELETE`   | Delete a song from the user's list (JWT required). |
 | `/recent`              | `POST`     | Update the user's recently played songs (JWT required). |
 | `/grecent`             | `POST`     | Get the user's recently played songs (JWT required). |
+
 
 ### **Admin Management**
 | **Route**                       | **Method** | **Description**                               |
