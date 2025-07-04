@@ -3,7 +3,9 @@
 This repository contains a music player web application built using the **MERN stack** (MongoDB, Express.js, React.js, and Node.js). Users can register, log in, upload their music, stream songs, and manage playlists in a secure and scalable environment.
 
 ---
-
+## Live Preview:
+https://jsmusic.vercel.app/
+---
 ## 🚀 **Features**
 - 🔒 **Secure Authentication** - User authentication using JWT.
 - 📧 **OTP Authentication** - Secure email verification for registration and password reset.
