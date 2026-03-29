@@ -101,7 +101,10 @@ exports.postRegister = async (req, res) => {
 exports.verifyOTP = async (req, res) => {
     try {
         const { email, password, name, mobile } = req.body;
-        const user = await User.findOne({ email });
+        if (typeof email !== 'string') {
+            return res.status(400).json({ message: "Invalid email" });
+        }
+        const user = await User.findOne({ email: { $eq: email } });
         if (user) {
             return res.status(400).json({ message: "User Already Exists" });
         }
