@@ -32,14 +32,17 @@ exports.login=async (req,res)=>{
 exports.register=async(req,res)=>{
     try{
         const {username,password,name}=req.body;
-        const checkuser=await AdminUser.findOne({username})
+        if (typeof username !== "string") {
+            return res.status(400).json({message:"Invalid username"});
+        }
+        const checkuser=await AdminUser.findOne({ username: { $eq: username } })
         if(checkuser){
             return res.status(400).json({message:"User already exists"})
         }
-        const hashedPass= await bcrypt.hash(hashedPass,10);
+        const hashedPass= await bcrypt.hash(password,10);
         const newUser= new AdminUser ({
             username,
-            hashedPass,
+            password: hashedPass,
             name
         })
         await newUser.save();
