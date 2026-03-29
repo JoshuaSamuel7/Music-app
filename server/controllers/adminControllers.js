@@ -106,8 +106,29 @@ exports.getMusicUsers=async(req,res)=>{
 }
 exports.putMusicUsers=async(req,res)=>{
     try{
-        const {id,email,name,mobile}=req.body;        
-        const updated=await User.findByIdAndUpdate(id,{email,name,mobile});
+        const { id, email, name, mobile } = req.body;
+
+        // Basic validation to avoid using potentially dangerous objects in the update
+        if (typeof id !== "string" || !id.trim()) {
+            return res.status(400).json({ message: "Invalid user id" });
+        }
+
+        const update = {};
+        if (typeof email === "string") {
+            update.email = email;
+        }
+        if (typeof name === "string") {
+            update.name = name;
+        }
+        if (typeof mobile === "string") {
+            update.mobile = mobile;
+        }
+
+        if (Object.keys(update).length === 0) {
+            return res.status(400).json({ message: "No valid fields to update" });
+        }
+
+        const updated = await User.findByIdAndUpdate(id, update);
         if(!updated){
             return res.status(404).json({message:"User not Found"})
         }
