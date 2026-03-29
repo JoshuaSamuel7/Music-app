@@ -8,7 +8,20 @@ const allowedDomains = ["gmail.com", "outlook.com", "yahoo.com", "hotmail.com", 
 exports.postLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        // Validate and normalize email to prevent NoSQL injection
+        if (typeof email !== "string") {
+            return res.status(400).json({ message: "Invalid email format" });
+        }
+        const trimmedEmail = email.trim();
+        const atIndex = trimmedEmail.lastIndexOf("@");
+        if (atIndex === -1) {
+            return res.status(400).json({ message: "Invalid email format" });
+        }
+        const domain = trimmedEmail.slice(atIndex + 1).toLowerCase();
+        if (!allowedDomains.includes(domain)) {
+            return res.status(400).json({ message: "Email domain not allowed" });
+        }
+        const user = await User.findOne({ email: trimmedEmail });
         if (!user) {
             return res.status(404).json({ message: "User Not found" });
         }
